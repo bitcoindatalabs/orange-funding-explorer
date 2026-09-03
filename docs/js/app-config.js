@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             footerLinks: [],
             suiteLinks: [
-                { name: 'orange-dev-tracker', url: 'https://tracker.bitcoindatalabs.org', icon: 'fas fa-chart-line' },
-                { name: 'this-week-in-bitcoin', url: 'https://twib.bitcoindatalabs.org', icon: 'fas fa-newspaper' }
+                { name: 'orange-funding-explorer', url: 'https://bitcoindatalabs.github.io/orange-funding-explorer/', icon: 'fas fa-search-dollar' },
+                { name: 'orange-ecosystem-map', url: 'https://bitcoindatalabs.github.io/orange-ecosystem-map/', icon: 'fas fa-project-diagram' }
             ]
         });
     }
