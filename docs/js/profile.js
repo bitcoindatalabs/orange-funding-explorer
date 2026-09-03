@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         if (type === 'funder') {
-            const rosterData = await fetch('funding-data/enriched/explorer/roster.json').then(r => r.json());
+            const rosterData = await fetch('https://raw.githubusercontent.com/bitcoindatalabs/orange-funding-data/main/data/enriched/explorer/roster.json').then(r => r.json());
             const funded = rosterData.filter(d => d.sponsors && d.sponsors.includes(id));
             
             if (funded.length === 0) {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             let meta = {};
             try {
-                const sponsorsMetaRaw = await fetch('funding-data/enriched/sponsors_merged.json').then(r => r.json());
+                const sponsorsMetaRaw = await fetch('https://raw.githubusercontent.com/bitcoindatalabs/orange-funding-data/main/data/enriched/sponsors_merged.json').then(r => r.json());
                 meta = sponsorsMetaRaw.sponsors.find(s => 
                     s.name.toLowerCase() === id.toLowerCase() || 
                     (s.id && s.id.toLowerCase() === id.toLowerCase())
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        const url = `funding-data/enriched/explorer/profiles/${type === 'dev' ? 'devs' : 'projects'}/${encodeURIComponent(id.toLowerCase())}.json`;
+        const url = `https://raw.githubusercontent.com/bitcoindatalabs/orange-funding-data/main/data/enriched/explorer/profiles/${type === 'dev' ? 'devs' : 'projects'}/${encodeURIComponent(id.toLowerCase())}.json`;
         const response = await fetch(url);
         
         if (!response.ok) {
