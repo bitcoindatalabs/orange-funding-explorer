@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let chartAggregate, chartMegaRadar;
 
+const DATA_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" 
+    ? "funding-data/" 
+    : "https://raw.githubusercontent.com/bitcoindatalabs/orange-funding-data/main/data/";
+
 async function fetchJSON(url) {
     try {
         const response = await fetch(url);
@@ -19,7 +23,7 @@ async function initCharts() {
     const domAggregate = document.getElementById('chart-aggregate');
     
     if (domRadar || domAggregate) {
-        const data = await fetchJSON('https://raw.githubusercontent.com/bitcoindatalabs/orange-funding-data/main/data/enriched/explorer/megasponsors.json');
+        const data = await fetchJSON(DATA_BASE_URL + 'enriched/explorer/megasponsors.json');
         if (data) {
             if (domRadar) {
                 chartMegaRadar = echarts.init(domRadar);
@@ -77,7 +81,7 @@ async function initCharts() {
 
     const domKpiFunders = document.getElementById('kpi-funders');
     if (domKpiFunders) {
-        const roster = await fetchJSON('https://raw.githubusercontent.com/bitcoindatalabs/orange-funding-data/main/data/enriched/explorer/roster.json');
+        const roster = await fetchJSON(DATA_BASE_URL + 'enriched/explorer/roster.json');
         if (roster) {
             const sponsors = new Set();
             let devCount = 0;
@@ -130,7 +134,7 @@ async function initCharts() {
     }
 
     if (document.getElementById('roster-grid')) {
-        const rosterDataRaw = await fetchJSON('https://raw.githubusercontent.com/bitcoindatalabs/orange-funding-data/main/data/enriched/explorer/roster.json');
+        const rosterDataRaw = await fetchJSON(DATA_BASE_URL + 'enriched/explorer/roster.json');
         if (rosterDataRaw) {
             const isFunderPage = window.location.pathname.includes('funders.html');
             const escapeHTML = str => !str ? '' : str.replace(/[&<>'"]/g, tag => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[tag]));
@@ -144,7 +148,7 @@ async function initCharts() {
                 // Fetch sponsor metadata for social links
                 let sponsorsMeta = [];
                 try {
-                    const metaRaw = await fetchJSON('https://raw.githubusercontent.com/bitcoindatalabs/orange-funding-data/main/data/enriched/sponsors_merged.json');
+                    const metaRaw = await fetchJSON(DATA_BASE_URL + 'enriched/sponsors_merged.json');
                     if (metaRaw && metaRaw.sponsors) {
                         sponsorsMeta = metaRaw.sponsors;
                     }
